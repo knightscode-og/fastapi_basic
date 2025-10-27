@@ -48,9 +48,14 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
+**Constitution Alignment**: Principle I (Code Quality), Principle II (Testing Standards)
+
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T003 [P] Configure linting and formatting tools (pylint, black, mypy --strict)
+- [ ] T004 [P] Setup test infrastructure: pytest, pytest-asyncio, pytest-cov, coverage.py
+- [ ] T005 Create conftest.py with common fixtures and test utilities
+- [ ] T006 Configure CI/CD pipeline (GitHub Actions / GitLab CI) for quality gates
 
 ---
 
@@ -58,16 +63,21 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
+**Constitution Alignment**: Principle III (UX Consistency), Principle IV (Performance Requirements)
+
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
 Examples of foundational tasks (adjust based on your project):
 
-- [ ] T004 Setup database schema and migrations framework
-- [ ] T005 [P] Implement authentication/authorization framework
-- [ ] T006 [P] Setup API routing and middleware structure
-- [ ] T007 Create base models/entities that all stories depend on
-- [ ] T008 Configure error handling and logging infrastructure
-- [ ] T009 Setup environment configuration management
+- [ ] T007 Create base response schema and error handling middleware (for Principle III)
+- [ ] T008 Setup database connection pooling and query monitoring (for Principle IV)
+- [ ] T009 [P] Implement authentication/authorization framework with type hints
+- [ ] T010 [P] Setup API routing and middleware structure; enforce snake_case naming
+- [ ] T011 Create base models/entities with full type hints; all public methods documented
+- [ ] T012 Configure structured logging with response time tracking (for Principle IV)
+- [ ] T013 Setup environment configuration management (secrets, feature flags)
+- [ ] T014 Create contracts/ directory and add OpenAPI schema generation
+- [ ] T015 Setup database migrations framework and write first migration
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -79,23 +89,28 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 1 (OPTIONAL - only if tests requested) ⚠️
+**Constitution Alignment**: All 4 principles apply; emphasis on Principle II (TDD) and Principle III (consistent API response)
 
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
+### Tests for User Story 1 (REQUIRED - per Principle II) ⚠️
 
-- [ ] T010 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T011 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py
+> **MANDATORY**: Write these tests FIRST, ensure they FAIL before implementation
+
+- [ ] T016 [P] [US1] Contract test for [endpoint] in tests/contract/test_[name].py (verify response schema)
+- [ ] T017 [P] [US1] Contract test for error cases in tests/contract/test_[name].py (verify error schema per Principle III)
+- [ ] T018 [P] [US1] Integration test for [user journey] in tests/integration/test_[name].py (end-to-end validation)
+- [ ] T019 [P] [US1] Unit test for [Service] business logic in tests/unit/test_[service].py
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Create [Entity1] model in src/models/[entity1].py
-- [ ] T013 [P] [US1] Create [Entity2] model in src/models/[entity2].py
-- [ ] T014 [US1] Implement [Service] in src/services/[service].py (depends on T012, T013)
-- [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T016 [US1] Add validation and error handling
-- [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T020 [P] [US1] Create [Entity1] model in src/models/[entity1].py (with full type hints, docstring)
+- [ ] T021 [P] [US1] Create [Entity2] model in src/models/[entity2].py (with full type hints, docstring)
+- [ ] T022 [US1] Implement [Service] in src/services/[service].py (depends on T020, T021; add logging)
+- [ ] T023 [US1] Implement [endpoint/feature] in src/api/endpoints/[file].py; validate response matches contract
+- [ ] T024 [US1] Add validation and error handling; verify errors follow schema from Principle III
+- [ ] T025 [US1] Add performance logging and verify p95 latency meets Principle IV thresholds
+- [ ] T026 [US1] Run linting (pylint ≥8.0), type check (mypy --strict), coverage (≥80%)
 
-**Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
+**Checkpoint**: At this point, User Story 1 should be fully functional, tested, and compliant with all principles
 
 ---
 
@@ -105,19 +120,25 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 2 (OPTIONAL - only if tests requested) ⚠️
+**Constitution Alignment**: All principles apply; same quality gates as US1
 
-- [ ] T018 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T019 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+### Tests for User Story 2 (REQUIRED - per Principle II) ⚠️
+
+- [ ] T027 [P] [US2] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T028 [P] [US2] Contract test for error cases in tests/contract/test_[name].py
+- [ ] T029 [P] [US2] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T030 [P] [US2] Unit test for [Service] business logic in tests/unit/test_[service].py
 
 ### Implementation for User Story 2
 
-- [ ] T020 [P] [US2] Create [Entity] model in src/models/[entity].py
-- [ ] T021 [US2] Implement [Service] in src/services/[service].py
-- [ ] T022 [US2] Implement [endpoint/feature] in src/[location]/[file].py
-- [ ] T023 [US2] Integrate with User Story 1 components (if needed)
+- [ ] T031 [P] [US2] Create [Entity] model in src/models/[entity].py (with type hints, docstring)
+- [ ] T032 [US2] Implement [Service] in src/services/[service].py (with logging)
+- [ ] T033 [US2] Implement [endpoint/feature] in src/api/endpoints/[file].py; verify response matches contract
+- [ ] T034 [US2] Integrate with User Story 1 components (if needed); verify no conflicts
+- [ ] T035 [US2] Verify error handling and response consistency with Principle III
+- [ ] T036 [US2] Run linting, type check, coverage gates before merge
 
-**Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
+**Checkpoint**: All user stories should now be independently functional and compliant
 
 ---
 
@@ -127,18 +148,24 @@ Examples of foundational tasks (adjust based on your project):
 
 **Independent Test**: [How to verify this story works on its own]
 
-### Tests for User Story 3 (OPTIONAL - only if tests requested) ⚠️
+**Constitution Alignment**: All principles apply; same quality gates as US1 and US2
 
-- [ ] T024 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
-- [ ] T025 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+### Tests for User Story 3 (REQUIRED - per Principle II) ⚠️
+
+- [ ] T037 [P] [US3] Contract test for [endpoint] in tests/contract/test_[name].py
+- [ ] T038 [P] [US3] Contract test for error cases in tests/contract/test_[name].py
+- [ ] T039 [P] [US3] Integration test for [user journey] in tests/integration/test_[name].py
+- [ ] T040 [P] [US3] Unit test for [Service] business logic in tests/unit/test_[service].py
 
 ### Implementation for User Story 3
 
-- [ ] T026 [P] [US3] Create [Entity] model in src/models/[entity].py
-- [ ] T027 [US3] Implement [Service] in src/services/[service].py
-- [ ] T028 [US3] Implement [endpoint/feature] in src/[location]/[file].py
+- [ ] T041 [P] [US3] Create [Entity] model in src/models/[entity].py (with type hints, docstring)
+- [ ] T042 [US3] Implement [Service] in src/services/[service].py (with logging)
+- [ ] T043 [US3] Implement [endpoint/feature] in src/api/endpoints/[file].py; verify response matches contract
+- [ ] T044 [US3] Verify error handling and response consistency with Principle III
+- [ ] T045 [US3] Run linting, type check, coverage gates before merge
 
-**Checkpoint**: All user stories should now be independently functional
+**Checkpoint**: All user stories should now be independently functional and ready for production
 
 ---
 
@@ -150,12 +177,15 @@ Examples of foundational tasks (adjust based on your project):
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] TXXX [P] Documentation updates in docs/
-- [ ] TXXX Code cleanup and refactoring
-- [ ] TXXX Performance optimization across all stories
-- [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
-- [ ] TXXX Security hardening
-- [ ] TXXX Run quickstart.md validation
+**Constitution Alignment**: Principle I (Code Quality), Principle IV (Performance Optimization)
+
+- [ ] TXXX [P] Documentation updates in docs/ and OpenAPI schema validation
+- [ ] TXXX Code cleanup and refactoring; verify complexity ≤5 per function (Principle I)
+- [ ] TXXX Performance optimization and benchmarking; verify p95 latencies (Principle IV)
+- [ ] TXXX [P] Run full quality gate suite: pylint, mypy, black, coverage, security scan
+- [ ] TXXX Security hardening and secrets audit; use environment variables everywhere
+- [ ] TXXX Integration testing across all user stories; verify end-to-end workflows
+- [ ] TXXX Run quickstart.md validation and smoke tests in staging environment
 
 ---
 

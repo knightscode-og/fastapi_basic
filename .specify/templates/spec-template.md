@@ -18,6 +18,11 @@
   - Tested independently
   - Deployed independently
   - Demonstrated to users independently
+  
+  CONSTRAINT (from Constitution - Principle III: User Experience Consistency):
+  Each story MUST specify the expected API response format and error handling.
+  - Response schema: document fields, types, and example payloads
+  - Error scenarios: how errors are handled (HTTP status + error response schema)
 -->
 
 ### User Story 1 - [Brief Title] (Priority: P1)
@@ -27,6 +32,13 @@
 **Why this priority**: [Explain the value and why it has this priority level]
 
 **Independent Test**: [Describe how this can be tested independently - e.g., "Can be fully tested by [specific action] and delivers [specific value]"]
+
+**API Contract** *(required for all endpoint-based stories)*:
+
+- **Endpoint**: [HTTP method] `/api/v1/[resource]`
+- **Request**: [Schema or example JSON - include required fields]
+- **Success Response** (200/201): [Example JSON response - field names in snake_case]
+- **Error Response** (400/500): [Standard error schema with error_code and message]
 
 **Acceptance Scenarios**:
 
@@ -43,6 +55,13 @@
 
 **Independent Test**: [Describe how this can be tested independently]
 
+**API Contract** *(required for all endpoint-based stories)*:
+
+- **Endpoint**: [HTTP method] `/api/v1/[resource]`
+- **Request**: [Schema or example JSON]
+- **Success Response** (200/201): [Example JSON response]
+- **Error Response** (400/500): [Standard error schema]
+
 **Acceptance Scenarios**:
 
 1. **Given** [initial state], **When** [action], **Then** [expected outcome]
@@ -57,13 +76,20 @@
 
 **Independent Test**: [Describe how this can be tested independently]
 
+**API Contract** *(required for all endpoint-based stories)*:
+
+- **Endpoint**: [HTTP method] `/api/v1/[resource]`
+- **Request**: [Schema or example JSON]
+- **Success Response** (200/201): [Example JSON response]
+- **Error Response** (400/500): [Standard error schema]
+
 **Acceptance Scenarios**:
 
 1. **Given** [initial state], **When** [action], **Then** [expected outcome]
 
 ---
 
-[Add more user stories as needed, each with an assigned priority]
+[Add more user stories as needed, each with an assigned priority and API contract]
 
 ### Edge Cases
 

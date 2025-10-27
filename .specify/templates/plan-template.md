@@ -31,7 +31,15 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+All features MUST comply with the FastAPI Server Constitution:
+
+- **Code Quality**: Module design supports linting; complexity kept ≤5 per function
+- **Testing Standards**: Feature includes unit, integration, and contract tests; TDD workflow planned
+- **User Experience Consistency**: API responses follow JSON schema; error handling consistent
+- **Performance Requirements**: Response time targets defined (p95 ≤200ms for GET, ≤500ms for POST/PUT/DELETE); no N+1 queries planned
+- **Type Safety**: All function signatures include type hints; mypy compatibility verified
+
+**Action**: If any check is violated, reject design and require redesign or document exception.
 
 ## Project Structure
 
