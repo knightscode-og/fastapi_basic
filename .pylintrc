@@ -6,6 +6,7 @@ jobs=4
 disable=
     unnecessary-pass,
     missing-docstring,
+    logging-too-many-args,
 
 [FORMAT]
 max-line-length=100
@@ -14,7 +15,7 @@ indent-string='    '
 [DESIGN]
 max-attributes=7
 max-locals=15
-max-arguments=10
+max-args=10
 max-branches=12
 max-public-methods=20
 min-public-methods=2

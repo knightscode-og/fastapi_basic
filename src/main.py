@@ -176,5 +176,9 @@ async def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
+# Mount tab endpoints
+from src.api.endpoints import tabs_router
+app.include_router(tabs_router, prefix="/api/v1", tags=["tabs"])
+
 # Endpoint routers will be added here in later phases
 # app.include_router(tabs_router, prefix="/api/v1", tags=["tabs"])
