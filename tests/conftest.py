@@ -18,6 +18,43 @@ from src.models.tab import MusicTab, MusicTabCreate
 from src.services.tab_service import TabService
 
 
+@pytest.fixture(autouse=False)
+def fixture_empty_storage() -> Generator[None, None, None]:
+    """Ensure storage directory exists but is empty for test isolation.
+    
+    Clears storage/tabs/ before and after each test that uses this fixture.
+    Ensures tests don't interfere with each other via persistent storage.
+    Initializes tab_service for TestClient usage.
+    
+    Yields:
+        None (fixture just ensures clean storage state)
+    """
+    from pathlib import Path
+    
+    storage_path = Path("storage/tabs")
+    
+    # Clear storage before test
+    if storage_path.exists():
+        for f in storage_path.glob("*.json"):
+            f.unlink()
+    
+    # Initialize tab_service in src.main module (after all imports complete)
+    # Delay import until after fixture setup to avoid cyclic imports
+    import src.main
+    import src.api.endpoints.tabs as tabs_module
+    
+    fresh_service = TabService(storage_dir=storage_path)
+    src.main.tab_service = fresh_service
+    tabs_module.tab_service = fresh_service  # Also update the endpoint reference
+    
+    yield
+    
+    # Clear storage after test
+    if storage_path.exists():
+        for f in storage_path.glob("*.json"):
+            f.unlink()
+
+
 @pytest.fixture
 def fixture_tab_service() -> Generator[TabService, None, None]:
     """Create fresh TabService instance for each test.

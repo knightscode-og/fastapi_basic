@@ -92,35 +92,74 @@ pylint src/ && black --check src/ tests/ && mypy src/ --strict && pytest
 ## Project Structure
 
 ```
-music-tabs-api/
-├── src/
-│   ├── __init__.py
-│   ├── main.py                    # FastAPI app entry point
+fastapi_basic/
+├── README.md                          ← START HERE
+├── requirements.txt                   ← Production dependencies
+├── pyproject.toml                     ← Build metadata & tool config
+├── .pylintrc                          ← Linting configuration
+├── .env.example                       ← Environment variables template
+│
+├── src/                               ← SOURCE CODE
+│   ├── main.py                        ← FastAPI app initialization
 │   ├── models/
-│   │   ├── __init__.py
-│   │   ├── base.py               # ErrorResponse, TabsListResponse
-│   │   └── tab.py                # MusicTab, MusicTabCreate
+│   │   ├── base.py                    ← Error responses, list wrappers
+│   │   └── tab.py                     ← MusicTab, MusicTabCreate models
 │   ├── services/
-│   │   ├── __init__.py
-│   │   └── tab_service.py        # Business logic (CRUD, file I/O)
-│   ├── api/
-│   │   ├── __init__.py
-│   │   └── endpoints/
-│   │       ├── __init__.py
-│   │       └── tabs.py           # Route handlers
-│   └── storage/
-│       └── tabs/                 # Individual JSON files per tab
-├── tests/
-│   ├── __init__.py
-│   ├── conftest.py              # Shared fixtures
-│   ├── unit/                    # Unit tests for services, models
-│   ├── integration/             # End-to-end workflow tests
-│   └── contract/                # API contract tests
-├── pyproject.toml               # Project metadata, dependencies, tool config
-├── .pylintrc                    # Linting configuration
-├── .env.example                 # Environment variables template
-└── README.md                    # This file
+│   │   └── tab_service.py             ← TabService (CRUD operations)
+│   ├── api/endpoints/
+│   │   └── tabs.py                    ← Route handlers for /api/v1/tabs
+│   └── utils/
+│       └── timing.py                  ← Performance instrumentation
+│
+├── tests/                             ← TEST SUITE (37 tests, 94.37% coverage)
+│   ├── conftest.py                    ← Shared test fixtures
+│   ├── unit/                          ← Unit tests
+│   │   └── test_tab_service.py
+│   ├── integration/                   ← Integration tests
+│   │   ├── test_tabs_workflow.py
+│   │   ├── test_tabs_create_workflow.py
+│   │   └── test_full_workflow.py
+│   ├── contract/                      ← Contract tests
+│   │   ├── test_tabs_list.py
+│   │   └── test_tabs_create.py
+│   └── smoke_test.py                  ← Quick validation tests
+│
+├── specs/001-music-tabs-api/          ← SPECIFICATION & DOCS
+│   ├── spec.md                        ← Feature specification
+│   ├── plan.md                        ← Implementation plan
+│   ├── tasks.md                       ← Task breakdown (100 tasks)
+│   ├── research.md                    ← Technical research
+│   ├── data-model.md                  ← Entity definitions
+│   ├── quickstart.md                  ← Developer guide
+│   ├── DEPLOYMENT.md                  ← Deployment guide
+│   ├── PHASE_1_COMPLETION.md through PHASE_6_COMPLETION.md
+│   ├── checklists/                    ← Phase checklists
+│   └── contracts/                     ← API contract definitions
+│
+├── documentation/                     ← REFERENCE DOCS
+│   ├── ROADMAP.md                     ← Product roadmap (Phases 7-10)
+│   └── PROJECT_STATUS.md              ← Project metrics & status
+│
+├── storage/                           ← DATA PERSISTENCE
+│   └── tabs/                          ← Individual tab JSON files
+│
+└── .specify/                          ← SPECIFICATION FRAMEWORK
+    └── memory/
+        └── constitution.md            ← Project constitution
 ```
+
+## Documentation Guide
+
+| Need | Location | Purpose |
+|------|----------|---------|
+| **Quick start** | `README.md` (this file) | Getting started, running tests, commands |
+| **Feature details** | `specs/001-music-tabs-api/spec.md` | User stories, API contracts |
+| **Architecture** | `specs/001-music-tabs-api/plan.md` | Design decisions, Constitution alignment |
+| **Task status** | `specs/001-music-tabs-api/tasks.md` | 100 tasks across 6 phases |
+| **Deployment** | `specs/001-music-tabs-api/DEPLOYMENT.md` | How to deploy to production |
+| **Phase reports** | `specs/001-music-tabs-api/PHASE_*.md` | Phase completion status |
+| **Roadmap** | `documentation/ROADMAP.md` | Phases 7-10, future features |
+| **Project status** | `documentation/PROJECT_STATUS.md` | Metrics, test results, quality scores |
 
 ## API Endpoints
 

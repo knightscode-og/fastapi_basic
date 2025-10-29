@@ -11,6 +11,7 @@ from fastapi import APIRouter, HTTPException
 from src.main import tab_service
 from src.models.base import TabsListResponse
 from src.models.tab import MusicTab, MusicTabCreate
+from src.utils.timing import measure_latency
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +20,7 @@ router: APIRouter = APIRouter()
 
 
 @router.get("/tabs", response_model=TabsListResponse, status_code=200)
+@measure_latency("GET /api/v1/tabs")
 async def get_all_tabs() -> TabsListResponse:
     """Retrieve all stored music tabs.
 
@@ -43,6 +45,7 @@ async def get_all_tabs() -> TabsListResponse:
 
 
 @router.get("/tabs/{tab_id}", response_model=MusicTab, status_code=200)
+@measure_latency("GET /api/v1/tabs/{id}")
 async def get_tab_by_id(tab_id: int) -> MusicTab:
     """Retrieve a single tab by ID.
 
@@ -74,6 +77,7 @@ async def get_tab_by_id(tab_id: int) -> MusicTab:
 
 
 @router.post("/tabs", response_model=MusicTab, status_code=201)
+@measure_latency("POST /api/v1/tabs")
 async def create_tab(tab_create: MusicTabCreate) -> MusicTab:
     """Create a new music tab.
 

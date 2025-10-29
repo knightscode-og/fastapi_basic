@@ -42,8 +42,9 @@ app = FastAPI(
 storage_dir = Path("storage/tabs")
 storage_dir.mkdir(parents=True, exist_ok=True)
 
-# Initialize service (single instance for entire app lifetime)
-tab_service = TabService(storage_dir=storage_dir)
+# Service instance initialized at module load time
+# This ensures tab_service is never None during request handling
+tab_service: TabService = TabService(storage_dir=storage_dir)
 
 logger.info("FastAPI app initialized: Music Tabs API v1.0.0")
 logger.info("Storage directory: %s", storage_dir.absolute())
@@ -176,9 +177,7 @@ async def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
-# Mount tab endpoints
+# Mount tab endpoints (import after tab_service is initialized)
 from src.api.endpoints import tabs_router
-app.include_router(tabs_router, prefix="/api/v1", tags=["tabs"])
 
-# Endpoint routers will be added here in later phases
-# app.include_router(tabs_router, prefix="/api/v1", tags=["tabs"])
+app.include_router(tabs_router, prefix="/api/v1", tags=["tabs"])
